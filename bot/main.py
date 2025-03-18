@@ -1,5 +1,5 @@
 import logging
-from logger import get_logger
+from logger import setup_logging
 from bot.meme_bot import MemeBot
 
 def main():

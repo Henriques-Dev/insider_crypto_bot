@@ -34,3 +34,107 @@ Traceback (most recent call last):
     1 / 0  # Gera uma exceção
     ~~^~~
 ZeroDivisionError: division by zero
+2025-03-18 03:55:37 | InsiderCrypto | ALERT | log_config:33 - Esta é uma mensagem de ALERT
+2025-03-18 03:55:37 | InsiderCrypto | ERROR | test_logger:13 - Esta é uma mensagem de ERROR
+2025-03-18 03:55:37 | InsiderCrypto | CRITICAL | test_logger:14 - Esta é uma mensagem de CRITICAL
+2025-03-18 03:55:37 | InsiderCrypto | ERROR | test_logger:20 - Erro ao dividir por zero: division by zero
+Traceback (most recent call last):
+  File "D:\Workspace\Projeto-Python\insider_crypto_bot\tests\test_logger.py", line 18, in <module>
+    1 / 0  # Gera uma exceção
+    ~~^~~
+ZeroDivisionError: division by zero
+2025-03-18 03:56:47 | InsiderCrypto | ALERT | log_config:33 - Esta é uma mensagem de ALERT
+2025-03-18 03:56:47 | InsiderCrypto | ERROR | test_logger:13 - Esta é uma mensagem de ERROR
+2025-03-18 03:56:47 | InsiderCrypto | CRITICAL | test_logger:14 - Esta é uma mensagem de CRITICAL
+2025-03-18 03:56:47 | InsiderCrypto | ERROR | test_logger:20 - Erro ao dividir por zero: division by zero
+Traceback (most recent call last):
+  File "D:\Workspace\Projeto-Python\insider_crypto_bot\tests\test_logger.py", line 18, in <module>
+    1 / 0  # Gera uma exceção
+    ~~^~~
+ZeroDivisionError: division by zero
+2025-03-18 04:00:32 | InsiderCrypto | ALERT | log_config:33 - Esta é uma mensagem de ALERT
+2025-03-18 04:00:32 | InsiderCrypto | ERROR | test_logger:13 - Esta é uma mensagem de ERROR
+2025-03-18 04:00:32 | InsiderCrypto | CRITICAL | test_logger:14 - Esta é uma mensagem de CRITICAL
+2025-03-18 04:00:32 | InsiderCrypto | ERROR | test_logger:20 - Erro ao dividir por zero: division by zero
+Traceback (most recent call last):
+  File "D:\Workspace\Projeto-Python\insider_crypto_bot\tests\test_logger.py", line 18, in <module>
+    1 / 0  # Gera uma exceção
+    ~~^~~
+ZeroDivisionError: division by zero
+2025-03-18 04:28:26 | InsiderCrypto | ALERT | log_config:33 - Esta é uma mensagem de ALERT
+2025-03-18 04:28:26 | InsiderCrypto | ERROR | test_logger:24 - Esta é uma mensagem de ERROR
+2025-03-18 04:28:26 | InsiderCrypto | CRITICAL | test_logger:25 - Esta é uma mensagem de CRITICAL
+2025-03-18 04:28:26 | InsiderCrypto | ERROR | test_logger:31 - Erro ao dividir por zero: division by zero
+Traceback (most recent call last):
+  File "D:\Workspace\Projeto-Python\insider_crypto_bot\tests\test_logger.py", line 29, in test_logger
+    1 / 0  # Gera uma exceção
+    ~~^~~
+ZeroDivisionError: division by zero
+2025-03-18 04:32:31 | InsiderCrypto | ALERT | log_config:33 - Esta é uma mensagem de ALERT
+2025-03-18 04:32:31 | InsiderCrypto | ERROR | test_logger:21 - Esta é uma mensagem de ERROR
+2025-03-18 04:32:31 | InsiderCrypto | CRITICAL | test_logger:22 - Esta é uma mensagem de CRITICAL
+2025-03-18 04:32:31 | InsiderCrypto | ERROR | test_logger:28 - Erro ao dividir por zero: division by zero
+Traceback (most recent call last):
+  File "D:\Workspace\Projeto-Python\insider_crypto_bot\tests\test_logger.py", line 26, in test_logger
+    1 / 0  # Gera uma exceção
+    ~~^~~
+ZeroDivisionError: division by zero
+2025-03-18 15:08:07 | InsiderCrypto | ALERT | log_config:33 - Esta é uma mensagem de ALERT
+2025-03-18 15:08:07 | InsiderCrypto | ERROR | test_logger:21 - Esta é uma mensagem de ERROR
+2025-03-18 15:08:07 | InsiderCrypto | CRITICAL | test_logger:22 - Esta é uma mensagem de CRITICAL
+2025-03-18 15:08:07 | InsiderCrypto | ERROR | test_logger:28 - Erro ao dividir por zero: division by zero
+Traceback (most recent call last):
+  File "D:\Workspace\Projeto-Python\insider_crypto_bot\tests\test_logger.py", line 26, in test_logger
+    1 / 0  # Gera uma exceção
+    ~~^~~
+ZeroDivisionError: division by zero
+2025-03-18 16:06:23 | InsiderCrypto | ALERT | log_config:41 - Esta é uma mensagem de ALERT
+2025-03-18 16:06:23 | InsiderCrypto | ERROR | test_logger:22 - Esta é uma mensagem de ERROR
+2025-03-18 16:06:23 | InsiderCrypto | CRITICAL | test_logger:23 - Esta é uma mensagem de CRITICAL
+2025-03-18 16:06:23 | InsiderCrypto | ERROR | test_logger:29 - Erro ao dividir por zero: division by zero
+Traceback (most recent call last):
+  File "D:\Workspace\Projeto-Python\insider_crypto_bot\tests\test_logger.py", line 27, in test_logger
+    1 / 0  # Gera uma exceção
+    ~~^~~
+ZeroDivisionError: division by zero
+2025-03-18 16:06:23 | InsiderCrypto | ERROR | log_config:52 - [APIConnectionError] [APIConnectionError] Falha na conexão com a API (URL: https://api.example.com) | Detalhes: Timeout ao tentar conectar | Causa: Erro de rede
+2025-03-18 16:06:28 | InsiderCrypto | ALERT | log_config:41 - Esta é uma mensagem de ALERT
+2025-03-18 16:06:28 | InsiderCrypto | ERROR | test_logger:22 - Esta é uma mensagem de ERROR
+2025-03-18 16:06:28 | InsiderCrypto | CRITICAL | test_logger:23 - Esta é uma mensagem de CRITICAL
+2025-03-18 16:06:28 | InsiderCrypto | ERROR | test_logger:29 - Erro ao dividir por zero: division by zero
+Traceback (most recent call last):
+  File "D:\Workspace\Projeto-Python\insider_crypto_bot\tests\test_logger.py", line 27, in test_logger
+    1 / 0  # Gera uma exceção
+    ~~^~~
+ZeroDivisionError: division by zero
+2025-03-18 16:06:28 | InsiderCrypto | ERROR | log_config:52 - [APIConnectionError] [APIConnectionError] Falha na conexão com a API (URL: https://api.example.com) | Detalhes: Timeout ao tentar conectar | Causa: Erro de rede
+2025-03-18 17:52:29 | InsiderCrypto | ALERT | log_config:42 - Esta é uma mensagem de ALERT
+2025-03-18 17:52:29 | InsiderCrypto | ERROR | test_logger:22 - Esta é uma mensagem de ERROR
+2025-03-18 17:52:29 | InsiderCrypto | CRITICAL | test_logger:23 - Esta é uma mensagem de CRITICAL
+2025-03-18 17:52:29 | InsiderCrypto | ERROR | test_logger:29 - Erro ao dividir por zero: division by zero
+Traceback (most recent call last):
+  File "D:\Workspace\Projeto-Python\insider_crypto_bot\tests\test_logger.py", line 27, in test_logger
+    1 / 0  # Gera uma exceção
+    ~~^~~
+ZeroDivisionError: division by zero
+2025-03-18 17:52:29 | InsiderCrypto | ERROR | log_config:54 - [APIConnectionError] [APIConnectionError] Falha na conexão com a API (URL: https://api.example.com) | Detalhes: Timeout ao tentar conectar | Causa: Erro de rede
+2025-03-18 18:14:15 | InsiderCrypto | ALERT | log_config:42 - Esta é uma mensagem de ALERT
+2025-03-18 18:14:15 | InsiderCrypto | ERROR | test_logger:22 - Esta é uma mensagem de ERROR
+2025-03-18 18:14:15 | InsiderCrypto | CRITICAL | test_logger:23 - Esta é uma mensagem de CRITICAL
+2025-03-18 18:14:15 | InsiderCrypto | ERROR | test_logger:29 - Erro ao dividir por zero: division by zero
+Traceback (most recent call last):
+  File "D:\Workspace\Projeto-Python\insider_crypto_bot\tests\test_logger.py", line 27, in test_logger
+    1 / 0  # Gera uma exceção
+    ~~^~~
+ZeroDivisionError: division by zero
+2025-03-18 18:14:15 | InsiderCrypto | ERROR | log_config:53 - [APIConnectionError] [APIConnectionError] Falha na conexão com a API (URL: https://api.example.com) | Detalhes: Timeout ao tentar conectar | Causa: Erro de rede
+2025-03-18 18:14:19 | InsiderCrypto | ALERT | log_config:42 - Esta é uma mensagem de ALERT
+2025-03-18 18:14:19 | InsiderCrypto | ERROR | test_logger:22 - Esta é uma mensagem de ERROR
+2025-03-18 18:14:19 | InsiderCrypto | CRITICAL | test_logger:23 - Esta é uma mensagem de CRITICAL
+2025-03-18 18:14:19 | InsiderCrypto | ERROR | test_logger:29 - Erro ao dividir por zero: division by zero
+Traceback (most recent call last):
+  File "D:\Workspace\Projeto-Python\insider_crypto_bot\tests\test_logger.py", line 27, in test_logger
+    1 / 0  # Gera uma exceção
+    ~~^~~
+ZeroDivisionError: division by zero
+2025-03-18 18:14:19 | InsiderCrypto | ERROR | log_config:53 - [APIConnectionError] [APIConnectionError] Falha na conexão com a API (URL: https://api.example.com) | Detalhes: Timeout ao tentar conectar | Causa: Erro de rede

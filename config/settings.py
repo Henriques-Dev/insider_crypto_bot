@@ -14,6 +14,14 @@ class Settings:
         "telegram": os.getenv("TELEGRAM_API_KEY"),
     }
 
+    # Variáveis de ambiente para URLs
+    API_URLS = {
+        "dexscreener": "https://api.dexscreener.com/latest/dex",
+        "solana": "https://api.solscan.io",
+        "twitter": "https://api.twitter.com/2",
+        "reddit": "https://www.reddit.com/api/v1",
+    }
+
     # Configurações de log (não sensíveis, definidas diretamente no settings.py)
     LOG_CONFIG = {
         "LOG_LEVEL": "DEBUG",  # Nível de log padrão (DEBUG, INFO, WARNING, ERROR, CRITICAL)

@@ -24,3 +24,15 @@ loguru==0.7.3
 pytest==8.3.5
 pytest-cov==6.0.0
 pytest-asyncio==0.25.3
+
+# Para análise técnica
+ta==0.11.0
+
+# Para análise de sentimentos
+vaderSentimen==3.3.2
+
+transformers==4.49.0
+
+torch==2.6.0 
+torchaudio==2.6.0 
+torchvision==0.21.0
