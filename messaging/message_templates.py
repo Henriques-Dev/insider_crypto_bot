@@ -9,7 +9,7 @@ def generate_signal_message(symbol, price, time, action):
     """
 
 
-    class MessageTemplates:
-    @staticmethod
-    def alert_template(memecoin, action):
-        return f"Alerta: {action} {memecoin.name}!"
+    # class MessageTemplates:
+    # @staticmethod
+    # def alert_template(memecoin, action):
+    #     return f"Alerta: {action} {memecoin.name}!"
