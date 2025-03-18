@@ -17,6 +17,7 @@ import sys
 import os
 from pathlib import Path
 from logging.handlers import TimedRotatingFileHandler
+from config.settings import LOG_CONFIG
 from typing import Optional
 
 # Definindo nível customizado para ALERT
@@ -51,30 +52,29 @@ class ColorFormatter(logging.Formatter):
         return logging.Formatter(fmt, self.datefmt).format(record)
     
 def setup_logger(
-        name: str = "InsiderCrypto",
-        log_level: int = logging.INFO,
-        log_dir: str = "logs",
-        alert_log: str = "alerts.log"
+    name: str = "InsiderCrypto",
+    log_level: Optional[str] = None,
+    log_dir: Optional[str] = None,
+    alert_log: Optional[str] = None
 ) -> logging.Logger:
     """
-    Configura o sistema de loggin com handlers para console e arquivos
-
-    Args:
-        name (str): Nome do logger principal
-        log_level: Nível de log padrão
-        log_dir: Diretório para armazenar arquivos de log
-        alert_log: Nome do arquivo para alertas críticos
-
-    Returns:
-        Logger configurado e pronto para uso
+    Configura o sistema de logging com handlers para console e arquivos.
     """
     # Configurar diretório de logs
+    log_dir = log_dir or LOG_CONFIG["LOG_DIR"]
     Path(log_dir).mkdir(exist_ok=True)
 
     # Registrar logger customizado
     logging.setLoggerClass(CustomLogger)
     logger = logging.getLogger(name)
-    logger.setLevel(log_level)
+
+    # Define o nível de log
+    log_level = log_level or LOG_CONFIG["LOG_LEVEL"]
+    level = getattr(logging, log_level.upper(), logging.INFO)
+    logger.setLevel(level)
+
+    # Log de depuração para verificar o nível de log
+    logger.debug(f"Nível de log configurado: {log_level} ({level})")
 
     # Evitar registros duplicados
     if logger.handlers:
@@ -84,9 +84,10 @@ def setup_logger(
     base_fmt = "%(asctime)s | %(name)s | %(levelname)s | %(module)s:%(lineno)d - %(message)s"
     date_fmt = "%Y-%m-%d %H:%M:%S"
 
-    # Handler para console com cores
+    ## Handler para console com cores
     console_handler = logging.StreamHandler(sys.stdout)
     console_handler.setFormatter(ColorFormatter(base_fmt, date_fmt))
+    console_handler.setLevel(level)  # Define o mesmo nível do logger
 
     # Handler para arquivo principal com rotação diária
     main_handler = TimedRotatingFileHandler(
@@ -96,14 +97,16 @@ def setup_logger(
         encoding="utf-8"
     )
     main_handler.setFormatter(logging.Formatter(base_fmt, date_fmt))
+    main_handler.setLevel(level)  # Define o mesmo nível do logger
 
-    # handler especial para alertas
+    # Handler especial para alertas
+    alert_log = alert_log or LOG_CONFIG["ALERT_LOG"]
     alert_handler = logging.FileHandler(
         filename=os.path.join(log_dir, alert_log),
         mode="a",
         encoding="utf-8"
     )
-    alert_handler.setLevel(ALERT_LEVEL)
+    alert_handler.setLevel(ALERT_LEVEL)  # Mantém o nível ALERT para este handler
     alert_handler.setFormatter(logging.Formatter(base_fmt, date_fmt))
 
     # Adicionar handlers ao logger

@@ -1,18 +1,12 @@
-# tests/test_logger.py
 import sys
 import os
+from logger import setup_logger
 
-# Adiciona o diretório raiz ao Python path
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-# Importa o logger configurado
-from logger.log_config import setup_logger, get_logger
-
-# Configura o logger
-logger = setup_logger(log_level="INFO")
+# Configura o logger com o nível definido no settings.py
+logger = setup_logger()
 
 # Testa os diferentes níveis de log
-logger.debug("Esta é uma mensagem de DEBUG")  # Não deve aparecer (nível INFO)
+logger.debug("Esta é uma mensagem de DEBUG")
 logger.info("Esta é uma mensagem de INFO")
 logger.warning("Esta é uma mensagem de WARNING")
 logger.alert("Esta é uma mensagem de ALERT")

@@ -1,3 +1,4 @@
+from logger import get_logger
 class MemeBot:
     def __init__(self):
         # Inicializa APIs, gerenciador de memecoins, etc.

@@ -7,3 +7,30 @@ Traceback (most recent call last):
     1 / 0  # Gera uma exceção
     ~~^~~
 ZeroDivisionError: division by zero
+2025-03-18 02:21:27 | InsiderCrypto | ALERT | log_config:33 - Esta é uma mensagem de ALERT
+2025-03-18 02:21:27 | InsiderCrypto | ERROR | test_logger:16 - Esta é uma mensagem de ERROR
+2025-03-18 02:21:27 | InsiderCrypto | CRITICAL | test_logger:17 - Esta é uma mensagem de CRITICAL
+2025-03-18 02:21:27 | InsiderCrypto | ERROR | test_logger:23 - Erro ao dividir por zero: division by zero
+Traceback (most recent call last):
+  File "D:\Workspace\Projeto-Python\insider_crypto_bot\tests\test_logger.py", line 21, in <module>
+    1 / 0  # Gera uma exceção
+    ~~^~~
+ZeroDivisionError: division by zero
+2025-03-18 02:26:25 | InsiderCrypto | ALERT | log_config:33 - Esta é uma mensagem de ALERT
+2025-03-18 02:26:25 | InsiderCrypto | ERROR | test_logger:16 - Esta é uma mensagem de ERROR
+2025-03-18 02:26:25 | InsiderCrypto | CRITICAL | test_logger:17 - Esta é uma mensagem de CRITICAL
+2025-03-18 02:26:25 | InsiderCrypto | ERROR | test_logger:23 - Erro ao dividir por zero: division by zero
+Traceback (most recent call last):
+  File "D:\Workspace\Projeto-Python\insider_crypto_bot\tests\test_logger.py", line 21, in <module>
+    1 / 0  # Gera uma exceção
+    ~~^~~
+ZeroDivisionError: division by zero
+2025-03-18 02:26:32 | InsiderCrypto | ALERT | log_config:33 - Esta é uma mensagem de ALERT
+2025-03-18 02:26:32 | InsiderCrypto | ERROR | test_logger:16 - Esta é uma mensagem de ERROR
+2025-03-18 02:26:32 | InsiderCrypto | CRITICAL | test_logger:17 - Esta é uma mensagem de CRITICAL
+2025-03-18 02:26:32 | InsiderCrypto | ERROR | test_logger:23 - Erro ao dividir por zero: division by zero
+Traceback (most recent call last):
+  File "D:\Workspace\Projeto-Python\insider_crypto_bot\tests\test_logger.py", line 21, in <module>
+    1 / 0  # Gera uma exceção
+    ~~^~~
+ZeroDivisionError: division by zero
