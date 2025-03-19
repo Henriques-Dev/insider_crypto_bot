@@ -13,10 +13,11 @@ Implementa:
 """
 
 import asyncio
+import json
 from unittest.mock import AsyncMock, Mock
 import pandas as pd
 import numpy as np
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Union
 from logger import get_logger
 from memecoins import Memecoin, MemecoinManager
 from analysis import DexAPI, SocialAPI
@@ -125,6 +126,7 @@ class MarketAnalyzer:
         Args:
             symbol: Símbolo da memecoin para processamento.
         """
+        
         # Coleta dados de mercado e sociais
         market_data, social_data = await asyncio.gather(
             self.dex_api.fetch_market_data(symbol),
@@ -165,31 +167,66 @@ class MarketAnalyzer:
                     value=type(data[field]).__name__
                 )
 
-    def _validate_social_data(self, data: List[Dict], symbol: str) -> None:
-        """Valida estrutura básica dos dados sociais."""
-        if not isinstance(data, list):
+    def _validate_social_data(self, data: Union[Dict, List[Dict]], symbol: str) -> None:
+        """
+        Valida estrutura básica dos dados sociais.
+        
+        Args:
+            data: Dados sociais em formato de dicionário ou lista de dicionários
+            symbol: Símbolo da criptomoeda
+        """
+        # Caso 1: dados é um dicionário único
+        if isinstance(data, dict):
+            # Verificar se o dicionário contém as chaves necessárias
+            if "mentions" in data and "sentiment" in data:
+                return  # Os dados são válidos
+            else:
+                missing_keys = []
+                if "mentions" not in data:
+                    missing_keys.append("mentions")
+                if "sentiment" not in data:
+                    missing_keys.append("sentiment")
+                    
+                raise DataValidationError(
+                    message=f"Dados sociais para {symbol} incompletos. Faltam campos: {', '.join(missing_keys)}",
+                    field="social_data",
+                    value=list(data.keys())
+                )
+        
+        # Caso 2: dados é uma lista de dicionários
+        elif isinstance(data, list):
+            if not data:  # Lista vazia
+                raise DataValidationError(
+                    message=f"Lista de dados sociais para {symbol} está vazia",
+                    field="social_data",
+                    value="empty list"
+                )
+            
+            # Validar cada item da lista conforme a lógica original
+            for i, post in enumerate(data):
+                if "text" not in post:
+                    raise DataValidationError(
+                        message=f"Post {i} sem texto para {symbol}",
+                        field=f"social_data[{i}].text",
+                        value=post
+                    )
+        
+        # Caso 3: dados não é nem um dicionário nem uma lista
+        else:
             raise DataValidationError(
-                message="Dados sociais devem ser uma lista",
+                message="Dados sociais devem ser um dicionário ou uma lista de dicionários",
                 field="social_data",
                 value=type(data).__name__
             )
-        
-        for i, post in enumerate(data):
-            if "text" not in post:
-                raise DataValidationError(
-                    message=f"Post {i} sem texto para {symbol}",
-                    field=f"social_data[{i}].text",
-                    value=post
-                )
 
-    def _create_memecoin_instance(
+    async def _create_memecoin_instance(
         self,
         symbol: str,
         market_data: Dict,
         social_data: List[Dict]
     ) -> Memecoin:
         """Constrói instância Memecoin com dados validados."""
-        sentiment_score = asyncio.run(self._calculate_sentiment_score(social_data))  # Chamada assíncrona
+        sentiment_score = await self._calculate_sentiment_score(social_data)  # Chamada assíncrona
         return Memecoin(
             symbol=symbol,
             name=market_data["name"],
@@ -259,7 +296,7 @@ class MarketAnalyzer:
         # Validação inicial
         if historical_data.empty or len(historical_data) < 14:
             raise DataValidationError(
-                message=f"Dados insuficientes ({len(historical_data)} períodos)",
+                message=f"Dados insuficientes ({len(historical_data)} períodos), são necessários 14 períodos",
                 field="historical_data.index",
                 value=len(historical_data)
             )
@@ -316,30 +353,38 @@ class MarketAnalyzer:
             AnalysisError: Para tipos de dados inválidos.
         """
         # Validação de atributos
-        required_attrs = ["sentiment_score", "volume_24h"]
-        missing = [attr for attr in required_attrs if not hasattr(memecoin, attr)]
+        required_attrs = ["sentiment_score", "volume_24h", "price"]  # Adicionado "price"
+        missing = [attr for attr in required_attrs 
+                if not hasattr(memecoin, attr) or getattr(memecoin, attr) is None]
+        
         if missing:
             raise DataValidationError(
-                message="Atributos obrigatórios ausentes",
+                message="Atributos obrigatórios ausentes ou nulos",
                 field="memecoin",
-                value=f"Atributos faltantes: {', '.join(missing)}"
+                value=f"Atributos faltantes ou nulos: {', '.join(missing)}"
             )
         
         # Validação de tipos
         try:
             score = float(memecoin.sentiment_score)
             volume = float(memecoin.volume_24h)
+            price = float(memecoin.price)  # Adicionado validação do tipo de preço
         except (TypeError, ValueError) as e:
+            # Verifique a assinatura correta do construtor AnalysisError
             raise AnalysisError(
                 message="Tipo de dado inválido para análise",
-                component="opportunity_detection",
-                details={
+                metric="sentiment_and_volume",
+                dataset=f"Memecoin: {memecoin.symbol}",
+                algorithm="opportunity_detection",
+                details=json.dumps({
                     "input_types": {
                         "sentiment_score": type(memecoin.sentiment_score).__name__,
-                        "volume_24h": type(memecoin.volume_24h).__name__
+                        "volume_24h": type(memecoin.volume_24h).__name__,
+                        "price": type(memecoin.price).__name__  # Adicionado tipo do preço
                     },
                     "error": str(e)
-                }
+                }),
+                cause=e
             )
 
         # Lógica de decisão
@@ -347,5 +392,5 @@ class MarketAnalyzer:
             return "buy"
         if score < 0.3 and volume < 500_000:
             return "sell"
-        
-        return None
+        else:
+            return None

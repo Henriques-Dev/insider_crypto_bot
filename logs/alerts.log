@@ -138,3 +138,33 @@ Traceback (most recent call last):
     ~~^~~
 ZeroDivisionError: division by zero
 2025-03-18 18:14:19 | InsiderCrypto | ERROR | log_config:53 - [APIConnectionError] [APIConnectionError] Falha na conexão com a API (URL: https://api.example.com) | Detalhes: Timeout ao tentar conectar | Causa: Erro de rede
+2025-03-18 20:36:47 | InsiderCrypto | ALERT | log_config:42 - Esta é uma mensagem de ALERT
+2025-03-18 20:36:47 | InsiderCrypto | ERROR | test_logger:22 - Esta é uma mensagem de ERROR
+2025-03-18 20:36:47 | InsiderCrypto | CRITICAL | test_logger:23 - Esta é uma mensagem de CRITICAL
+2025-03-18 20:36:47 | InsiderCrypto | ERROR | test_logger:29 - Erro ao dividir por zero: division by zero
+Traceback (most recent call last):
+  File "D:\Workspace\Projeto-Python\insider_crypto_bot\tests\test_logger.py", line 27, in test_logger
+    1 / 0  # Gera uma exceção
+    ~~^~~
+ZeroDivisionError: division by zero
+2025-03-18 20:36:47 | InsiderCrypto | ERROR | log_config:53 - [APIConnectionError] [APIConnectionError] Falha na conexão com a API (URL: https://api.example.com) | Detalhes: Timeout ao tentar conectar | Causa: Erro de rede
+2025-03-18 20:36:58 | InsiderCrypto | ALERT | log_config:42 - Esta é uma mensagem de ALERT
+2025-03-18 20:36:58 | InsiderCrypto | ERROR | test_logger:22 - Esta é uma mensagem de ERROR
+2025-03-18 20:36:58 | InsiderCrypto | CRITICAL | test_logger:23 - Esta é uma mensagem de CRITICAL
+2025-03-18 20:36:58 | InsiderCrypto | ERROR | test_logger:29 - Erro ao dividir por zero: division by zero
+Traceback (most recent call last):
+  File "D:\Workspace\Projeto-Python\insider_crypto_bot\tests\test_logger.py", line 27, in test_logger
+    1 / 0  # Gera uma exceção
+    ~~^~~
+ZeroDivisionError: division by zero
+2025-03-18 20:36:58 | InsiderCrypto | ERROR | log_config:53 - [APIConnectionError] [APIConnectionError] Falha na conexão com a API (URL: https://api.example.com) | Detalhes: Timeout ao tentar conectar | Causa: Erro de rede
+2025-03-18 23:46:33 | InsiderCrypto | ALERT | log_config:42 - Esta é uma mensagem de ALERT
+2025-03-18 23:46:33 | InsiderCrypto | ERROR | test_logger:22 - Esta é uma mensagem de ERROR
+2025-03-18 23:46:33 | InsiderCrypto | CRITICAL | test_logger:23 - Esta é uma mensagem de CRITICAL
+2025-03-18 23:46:33 | InsiderCrypto | ERROR | test_logger:29 - Erro ao dividir por zero: division by zero
+Traceback (most recent call last):
+  File "D:\Workspace\Projeto-Python\insider_crypto_bot\tests\test_logger.py", line 27, in test_logger
+    1 / 0  # Gera uma exceção
+    ~~^~~
+ZeroDivisionError: division by zero
+2025-03-18 23:46:33 | InsiderCrypto | ERROR | log_config:53 - [APIConnectionError] [APIConnectionError] Falha na conexão com a API (URL: https://api.example.com) | Detalhes: Timeout ao tentar conectar | Causa: Erro de rede

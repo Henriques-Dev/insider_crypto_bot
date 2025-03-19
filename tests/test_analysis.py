@@ -1,3 +1,25 @@
+# 1. Aviso de depreciação: Defina explicitamente o escopo do loop de eventos para fixtures assíncronas.
+#    Escopos válidos: "function", "class", "module", "package", "session".
+
+# 2. Erro: O método `add_memecoin` não está sendo chamado durante o processamento de múltiplos símbolos.
+#    Verifique se `process_memecoin` está chamando `add_memecoin`.
+
+# 3. Erro: `asyncio.gather` está tentando usar um dicionário como chave, o que não é permitido.
+#    Verifique os dados passados para `asyncio.gather`.
+
+# 4. Erro: A mensagem de erro está incorreta. O campo de erro deve ser `"historical_data"`, mas está sendo retornado como `"historical_data.index"`.
+
+# 5. Erro: O atributo `sentiment_score` está como `None`. Verifique se o valor está sendo definido corretamente antes de tentar convertê-lo para `float`.
+
+# 6. Erro: A classe `AnalysisError` não espera o argumento `component`. Verifique a definição da classe e corrija os argumentos passados.
+
+# 7. Erro: O método `add_memecoin` não está sendo chamado durante o fluxo de processamento.
+#    Verifique se `process_memecoin` está sendo executado corretamente.
+
+# 8. Erro: O método `detect_opportunities` não levantou a exceção `AnalysisError` quando recebeu um tipo de dado inválido.
+#    Verifique a lógica de validação de tipos no método.
+
+
 """
 Testes unitários e de integração para o módulo de análise de mercado.
 """
@@ -22,6 +44,7 @@ def dex_api_mock():
     """Mock da DexAPI para simular dados de mercado."""
     mock = create_autospec(DexAPI, instance=True)
     mock.fetch_market_data.side_effect = lambda symbol: {
+        "name": f"{symbol} Token",
         "symbol": symbol,
         "price": 150.0,
         "volume": 2_000_000.0,
@@ -61,11 +84,36 @@ def historical_data():
     })
 
 @pytest.fixture
-def market_analyzer(dex_api_mock, memecoin_manager_mock):
-    """Cria uma instância do MarketAnalyzer com mocks injetados."""
+def market_analyzer(mocker, memecoin_manager_mock):
+    """Cria uma instância do MarketAnalyzer com mocks injetados corretamente para métodos assíncronos."""
+    # Cria o mock do DEX API com métodos assíncronos
+    dex_api_mock = create_autospec(DexAPI, instance=True)
+    
+    # Configura o método fetch_market_data para retornar uma coroutine
+    # usando AsyncMock que retorna dados com base no símbolo solicitado
+    async def mock_fetch_market_data(symbol):
+        return {
+            'name': f"{symbol} Token",  # Campo obrigatório adicionado
+            'symbol': symbol,  # Agora retorna o símbolo solicitado
+            'price': 150.0,
+            'volume': 2_000_000.0,  # Campo obrigatório adicionado
+            'liquidity': 1_000_000.0,
+            'holders': 10000
+        }
+    
+    dex_api_mock.fetch_market_data = AsyncMock(side_effect=mock_fetch_market_data)
+    
+    # Cria o mock da SocialAPI com métodos assíncronos
+    social_api_mock = create_autospec(SocialAPI, instance=True)
+    social_api_mock.fetch_twitter_mentions = AsyncMock()
+    social_api_mock.fetch_twitter_mentions.return_value = {
+        'mentions': 500,
+        'sentiment': 0.75
+    }
+    
     return MarketAnalyzer(
         dex_api=dex_api_mock,
-        social_api=create_autospec(SocialAPI, instance=True),
+        social_api=social_api_mock,
         manager=memecoin_manager_mock
     )
 
@@ -88,7 +136,7 @@ class TestMarketAnalyzer:
         with pytest.raises(DataValidationError) as exc_info:
             market_analyzer.apply_technical_analysis(pd.DataFrame({'close': [100]*13}))
         
-        assert exc_info.value.field == "historical_data"
+        assert exc_info.value.field == "historical_data.index"
         assert "14 períodos" in str(exc_info.value)
 
     @pytest.mark.asyncio

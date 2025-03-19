@@ -127,15 +127,64 @@ class SocialAPI:
                 details=str(e)
             )
 
-    def _validate_social_data(self, data: Dict, platform: str) -> bool:
-        """Valida estrutura básica dos dados de redes sociais"""
-        required_fields = {
-            "twitter": ["data", "meta"],
-            "reddit": ["data", "kind"]
-        }
-        return all(field in data for field in required_fields[platform])
-
-    async def close(self):
-        """Fecha conexões HTTP"""
-        if self._session and not self._session.closed:
-            await self._session.close()
+    def _validate_social_data(self, data, symbol: str) -> None:
+        """
+        Valida estrutura básica dos dados sociais.
+        
+        Args:
+            data: Dados sociais em formato de dicionário ou lista de dicionários
+            symbol: Símbolo da criptomoeda
+            
+        Raises:
+            DataValidationError: Se os dados não estiverem no formato esperado
+        """
+        # Caso 1: dados é um dicionário único
+        if isinstance(data, dict):
+            # Verificar se o dicionário contém as chaves necessárias
+            required_keys = ["mentions", "sentiment"]
+            missing_keys = [key for key in required_keys if key not in data]
+            
+            if missing_keys:
+                raise DataValidationError(
+                    message=f"Dados sociais para {symbol} incompletos. Faltam campos: {', '.join(missing_keys)}",
+                    field="social_data",
+                    value=list(data.keys())
+                )
+            return  # Os dados são válidos se chegamos aqui
+        
+        # Caso 2: dados é uma lista de dicionários
+        elif isinstance(data, list):
+            if not data:  # Lista vazia
+                raise DataValidationError(
+                    message=f"Lista de dados sociais para {symbol} está vazia",
+                    field="social_data",
+                    value="empty list"
+                )
+            
+            # Aqui você pode adicionar validação para cada item da lista se necessário
+            for i, item in enumerate(data):
+                if not isinstance(item, dict):
+                    raise DataValidationError(
+                        message=f"Item {i} dos dados sociais para {symbol} não é um dicionário",
+                        field="social_data",
+                        value=type(item).__name__
+                    )
+                
+                # Verificar se cada dicionário contém as chaves necessárias
+                required_keys = ["mentions", "sentiment"]
+                missing_keys = [key for key in required_keys if key not in item]
+                
+                if missing_keys:
+                    raise DataValidationError(
+                        message=f"Dados sociais para {symbol} no item {i} incompletos. Faltam campos: {', '.join(missing_keys)}",
+                        field="social_data",
+                        value=list(item.keys())
+                    )
+        
+        # Caso 3: dados não é nem um dicionário nem uma lista
+        else:
+            raise DataValidationError(
+                message="Dados sociais devem ser um dicionário ou uma lista de dicionários",
+                field="social_data",
+                value=type(data).__name__
+            )
