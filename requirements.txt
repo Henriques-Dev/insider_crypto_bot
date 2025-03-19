@@ -1,2 +1,26 @@
-requests
-python-dotenv
+# Bibliotecas para requisições HTTP
+requests==2.32.3
+
+# Para manipulação de dados
+pandas==2.2.3
+
+# Para análise de dados e visualização
+numpy==2.2.4
+matplotlib==3.10.1
+
+# Para trabalhar com APIs de redes sociais (Twitter)
+tweepy==4.15.0
+
+# Para trabalhar com APIs de plataformas descentralizadas
+web3==7.9.0
+
+# Para gerenciamento de variáveis de ambiente
+python-dotenv==1.0.1
+
+# Para logging
+loguru==0.7.3
+
+# Para testes
+pytest==8.3.5
+pytest-cov==6.0.0
+pytest-asyncio==0.25.3
