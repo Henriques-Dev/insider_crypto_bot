@@ -133,15 +133,18 @@ class MarketAnalyzer:
             self.social_api.fetch_twitter_mentions(symbol)
         )
 
+        # Adicione um log para verificar os dados sociais
+        print(f"Dados sociais coletados para {symbol}: {social_data}")
+
         # Valida os dados coletados
         self._validate_market_data(market_data, symbol)
         self._validate_social_data(social_data, symbol)
 
         # Cria e adiciona a instância de Memecoin ao gerenciador
-        memecoin = self._create_memecoin_instance(symbol, market_data, social_data)
+        memecoin = await self._create_memecoin_instance(symbol, market_data, social_data)  # Adicione 'await' aqui
         self.memecoin_manager.add_memecoin(memecoin)
 
-        logger.info(f"Memecoin processada: {symbol}", extra={"data": memecoin.summary()})
+        logger.info(f"Memecoin processada: {symbol}", extra={"data": str(memecoin)})
 
     def _validate_market_data(self, data: Dict, symbol: str) -> None:
         """Valida estrutura básica dos dados de mercado."""
@@ -225,8 +228,53 @@ class MarketAnalyzer:
         market_data: Dict,
         social_data: List[Dict]
     ) -> Memecoin:
-        """Constrói instância Memecoin com dados validados."""
-        sentiment_score = await self._calculate_sentiment_score(social_data)  # Chamada assíncrona
+        """
+        Constrói instância Memecoin com dados validados.
+
+        Args:
+            symbol: Símbolo da memecoin (ex: "SOL").
+            market_data: Dicionário contendo dados de mercado. Espera-se as chaves:
+                - name: Nome da memecoin.
+                - price: Preço atual (float ou int).
+                - volume: Volume de negociação nas últimas 24h (float ou int).
+                - liquidity: Liquidez do par de negociação (float ou int).
+                - holders: Número de detentores (int).
+            social_data: Lista de dicionários contendo menções sociais. Cada dicionário deve conter:
+                - text: Texto da menção.
+                - timestamp: Data e hora da menção.
+
+        Returns:
+            Instância de Memecoin.
+
+        Raises:
+            DataValidationError: Se os dados de mercado ou sociais forem inválidos.
+        """
+        # Validação dos dados de mercado
+        required_market_fields = ["name", "price", "volume", "liquidity", "holders"]
+        for field in required_market_fields:
+            if field not in market_data:
+                raise DataValidationError(
+                    message=f"Dados de mercado inválidos: campo '{field}' ausente",
+                    field=f"market_data.{field}",
+                    value=None
+                )
+
+        # Validação dos dados sociais
+        if not isinstance(social_data, list):
+            raise DataValidationError(
+                message="Dados sociais inválidos: deve ser uma lista de dicionários",
+                field="social_data",
+                value=social_data
+            )
+
+        # Cálculo do sentiment score com tratamento de exceções
+        try:
+            sentiment_score = await self._calculate_sentiment_score(social_data)
+        except Exception as e:
+            logger.error(f"Erro ao calcular sentiment score para {symbol}: {e}")
+            sentiment_score = 0.0  # Valor padrão em caso de erro
+
+        # Criação da instância de Memecoin
         return Memecoin(
             symbol=symbol,
             name=market_data["name"],
@@ -258,8 +306,15 @@ class MarketAnalyzer:
 
         scores = []
         for post in social_data:
+            if "text" not in post:
+                logger.warning("Post sem texto ignorado")
+                continue  # Ignora posts sem texto
+
+            logger.debug(f"Processando post: {post['text']}")  # Log do texto do post
+
             try:
                 sentiment = await self.social_api.analyze_sentiment(post["text"])
+                logger.debug(f"Sentiment retornado: {sentiment}")  # Log do resultado da análise
                 scores.append(sentiment["vader_score"]["compound"])
             except KeyError as e:
                 logger.warning(f"Post incompleto ignorado: {str(e)}")
@@ -271,7 +326,13 @@ class MarketAnalyzer:
                     details=str(e)
                 )
 
-        return round(sum(scores) / len(scores), 4) if scores else 0.0
+        if scores:
+            average_score = round(sum(scores) / len(scores), 4)
+            logger.debug(f"Score médio calculado: {average_score}")
+            return average_score
+        else:
+            logger.debug("Nenhum score de sentimento calculado, retornando 0.0")
+            return 0.0
 
     @handle_errors(re_raise=True, log_level="warning")
     def apply_technical_analysis(self, historical_data: pd.DataFrame) -> Dict[str, float]:
@@ -388,6 +449,7 @@ class MarketAnalyzer:
             )
 
         # Lógica de decisão
+        print(f"Sentiment Score: {score}, Volume: {volume}")  # Adicione esta linha para depuração
         if score > 0.7 and volume > 1_000_000:
             return "buy"
         if score < 0.3 and volume < 500_000:

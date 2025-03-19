@@ -125,6 +125,10 @@ def setup_logger(
     except OSError as e:
         raise OSError(f"Falha ao criar diretório de logs: {log_dir}") from e
 
+    # Remover logger existente, se houver
+    if name in logging.Logger.manager.loggerDict:
+        del logging.Logger.manager.loggerDict[name]
+
     # Registrar logger customizado
     logging.setLoggerClass(CustomLogger)
     logger = logging.getLogger(name)
@@ -171,8 +175,7 @@ def setup_logger(
         logger.addHandler(alert_handler)
 
     return logger
-
-def get_logger(name: Optional[str] = None) -> logging .Logger:
+def get_logger(name: Optional[str] = None) -> logging.Logger:
     """
     Obtém uma instância do logger configurado.
 

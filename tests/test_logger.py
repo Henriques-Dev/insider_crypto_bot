@@ -1,9 +1,13 @@
-import sys
-import os
 import logging
 from pathlib import Path
-from logger import setup_logger, get_logger
-from config import settings  # Importa o objeto settings
+from logger import setup_logger, get_logger, CustomLogger
+from config import settings
+from error_handling import InsiderCryptoError, APIConnectionError  # Importa exceções personalizadas
+
+import logging
+from pathlib import Path
+from logger import setup_logger, get_logger, CustomLogger
+from config import settings
 from error_handling import InsiderCryptoError, APIConnectionError  # Importa exceções personalizadas
 
 def test_logger():
@@ -11,9 +15,18 @@ def test_logger():
     Testa o sistema de logging, verificando se os logs são gerados corretamente,
     se os arquivos de log são criados e se o tratamento de exceções funciona.
     """
-    # Configura o logger usando as configurações do settings
-    logger = setup_logger(log_level=settings.LOG_CONFIG["LOG_LEVEL"], log_dir=settings.LOG_CONFIG["LOG_DIR"])
+    # Limpar o cache de loggers
+    logging.Logger.manager.loggerDict.clear()
 
+    # Garantindo que a classe CustomLogger seja registrada
+    logging.setLoggerClass(CustomLogger)
+    
+    # Agora configuramos o logger
+    logger = setup_logger(log_level=settings.LOG_CONFIG["LOG_LEVEL"], log_dir=settings.LOG_CONFIG["LOG_DIR"])
+    
+    # Verificar se o logger é da classe correta
+    assert isinstance(logger, CustomLogger), "Logger não é uma instância de CustomLogger"
+    
     # Testa os diferentes níveis de log
     logger.debug("Esta é uma mensagem de DEBUG")
     logger.info("Esta é uma mensagem de INFO")

@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from typing import Optional
+from error_handling import AnalysisError
 
 @dataclass
 class Memecoin:
@@ -24,6 +25,63 @@ class Memecoin:
     holders: int
     social_mentions: int
     sentiment_score: Optional[float] = None
+
+    def __post_init__(self):
+        """Valida os tipos dos atributos após a inicialização."""
+        if not isinstance(self.price, (float, int)):
+            raise AnalysisError(
+                message="Tipo de dado inválido para análise",
+                metric="price",
+                dataset=f"Memecoin: {self.symbol}",
+                algorithm="type_validation",
+                details=f"O atributo 'price' deve ser um número (float ou int). Recebido: {type(self.price)}",
+                cause=TypeError(f"Expected float or int, got {type(self.price)}")
+            )
+        if not isinstance(self.volume_24h, (float, int)):
+            raise AnalysisError(
+                message="Tipo de dado inválido para análise",
+                metric="volume_24h",
+                dataset=f"Memecoin: {self.symbol}",
+                algorithm="type_validation",
+                details=f"O atributo 'volume_24h' deve ser um número (float ou int). Recebido: {type(self.volume_24h)}",
+                cause=TypeError(f"Expected float or int, got {type(self.volume_24h)}")
+            )
+        if not isinstance(self.liquidity, (float, int)):
+            raise AnalysisError(
+                message="Tipo de dado inválido para análise",
+                metric="liquidity",
+                dataset=f"Memecoin: {self.symbol}",
+                algorithm="type_validation",
+                details=f"O atributo 'liquidity' deve ser um número (float ou int). Recebido: {type(self.liquidity)}",
+                cause=TypeError(f"Expected float or int, got {type(self.liquidity)}")
+            )
+        if not isinstance(self.holders, int):
+            raise AnalysisError(
+                message="Tipo de dado inválido para análise",
+                metric="holders",
+                dataset=f"Memecoin: {self.symbol}",
+                algorithm="type_validation",
+                details=f"O atributo 'holders' deve ser um inteiro. Recebido: {type(self.holders)}",
+                cause=TypeError(f"Expected int, got {type(self.holders)}")
+            )
+        if not isinstance(self.social_mentions, int):
+            raise AnalysisError(
+                message="Tipo de dado inválido para análise",
+                metric="social_mentions",
+                dataset=f"Memecoin: {self.symbol}",
+                algorithm="type_validation",
+                details=f"O atributo 'social_mentions' deve ser um inteiro. Recebido: {type(self.social_mentions)}",
+                cause=TypeError(f"Expected int, got {type(self.social_mentions)}")
+            )
+        if self.sentiment_score is not None and not isinstance(self.sentiment_score, (float, int)):
+            raise AnalysisError(
+                message="Tipo de dado inválido para análise",
+                metric="sentiment_score",
+                dataset=f"Memecoin: {self.symbol}",
+                algorithm="type_validation",
+                details=f"O atributo 'sentiment_score' deve ser um número (float ou int) ou None. Recebido: {type(self.sentiment_score)}",
+                cause=TypeError(f"Expected float, int or None, got {type(self.sentiment_score)}")
+            )
 
     def __str__(self) -> str:
         """Representação amigável dos dados da memecoin."""

@@ -168,3 +168,73 @@ Traceback (most recent call last):
     ~~^~~
 ZeroDivisionError: division by zero
 2025-03-18 23:46:33 | InsiderCrypto | ERROR | log_config:53 - [APIConnectionError] [APIConnectionError] Falha na conexão com a API (URL: https://api.example.com) | Detalhes: Timeout ao tentar conectar | Causa: Erro de rede
+2025-03-19 13:43:11 | InsiderCrypto | ALERT | log_config:42 - Esta é uma mensagem de ALERT
+2025-03-19 13:43:11 | InsiderCrypto | ERROR | test_logger:22 - Esta é uma mensagem de ERROR
+2025-03-19 13:43:11 | InsiderCrypto | CRITICAL | test_logger:23 - Esta é uma mensagem de CRITICAL
+2025-03-19 13:43:11 | InsiderCrypto | ERROR | test_logger:29 - Erro ao dividir por zero: division by zero
+Traceback (most recent call last):
+  File "D:\Workspace\Projeto-Python\insider_crypto_bot\tests\test_logger.py", line 27, in test_logger
+    1 / 0  # Gera uma exceção
+    ~~^~~
+ZeroDivisionError: division by zero
+2025-03-19 13:43:11 | InsiderCrypto | ERROR | log_config:53 - [APIConnectionError] [APIConnectionError] Falha na conexão com a API (URL: https://api.example.com) | Detalhes: Timeout ao tentar conectar | Causa: Erro de rede
+2025-03-19 13:43:21 | InsiderCrypto | ALERT | log_config:42 - Esta é uma mensagem de ALERT
+2025-03-19 13:43:21 | InsiderCrypto | ERROR | test_logger:22 - Esta é uma mensagem de ERROR
+2025-03-19 13:43:21 | InsiderCrypto | CRITICAL | test_logger:23 - Esta é uma mensagem de CRITICAL
+2025-03-19 13:43:21 | InsiderCrypto | ERROR | test_logger:29 - Erro ao dividir por zero: division by zero
+Traceback (most recent call last):
+  File "D:\Workspace\Projeto-Python\insider_crypto_bot\tests\test_logger.py", line 27, in test_logger
+    1 / 0  # Gera uma exceção
+    ~~^~~
+ZeroDivisionError: division by zero
+2025-03-19 13:43:21 | InsiderCrypto | ERROR | log_config:53 - [APIConnectionError] [APIConnectionError] Falha na conexão com a API (URL: https://api.example.com) | Detalhes: Timeout ao tentar conectar | Causa: Erro de rede
+2025-03-19 14:17:26 | InsiderCrypto | ALERT | log_config:42 - Esta é uma mensagem de ALERT
+2025-03-19 14:17:26 | InsiderCrypto | ERROR | test_logger:35 - Esta é uma mensagem de ERROR
+2025-03-19 14:17:26 | InsiderCrypto | CRITICAL | test_logger:36 - Esta é uma mensagem de CRITICAL
+2025-03-19 14:17:26 | InsiderCrypto | ERROR | test_logger:42 - Erro ao dividir por zero: division by zero
+Traceback (most recent call last):
+  File "D:\Workspace\Projeto-Python\insider_crypto_bot\tests\test_logger.py", line 40, in test_logger
+    1 / 0  # Gera uma exceção
+    ~~^~~
+ZeroDivisionError: division by zero
+2025-03-19 14:17:26 | InsiderCrypto | ERROR | log_config:53 - [APIConnectionError] [APIConnectionError] Falha na conexão com a API (URL: https://api.example.com) | Detalhes: Timeout ao tentar conectar | Causa: Erro de rede
+2025-03-19 14:46:34 | InsiderCrypto | ALERT | log_config:42 - Esta é uma mensagem de ALERT
+2025-03-19 14:46:34 | InsiderCrypto | ERROR | test_logger:35 - Esta é uma mensagem de ERROR
+2025-03-19 14:46:34 | InsiderCrypto | CRITICAL | test_logger:36 - Esta é uma mensagem de CRITICAL
+2025-03-19 14:46:34 | InsiderCrypto | ERROR | test_logger:42 - Erro ao dividir por zero: division by zero
+Traceback (most recent call last):
+  File "D:\Workspace\Projeto-Python\insider_crypto_bot\tests\test_logger.py", line 40, in test_logger
+    1 / 0  # Gera uma exceção
+    ~~^~~
+ZeroDivisionError: division by zero
+2025-03-19 14:46:34 | InsiderCrypto | ERROR | log_config:53 - [APIConnectionError] [APIConnectionError] Falha na conexão com a API (URL: https://api.example.com) | Detalhes: Timeout ao tentar conectar | Causa: Erro de rede
+2025-03-19 14:52:54 | InsiderCrypto | ALERT | log_config:42 - Esta é uma mensagem de ALERT
+2025-03-19 14:52:54 | InsiderCrypto | ERROR | test_logger:35 - Esta é uma mensagem de ERROR
+2025-03-19 14:52:54 | InsiderCrypto | CRITICAL | test_logger:36 - Esta é uma mensagem de CRITICAL
+2025-03-19 14:52:54 | InsiderCrypto | ERROR | test_logger:42 - Erro ao dividir por zero: division by zero
+Traceback (most recent call last):
+  File "D:\Workspace\Projeto-Python\insider_crypto_bot\tests\test_logger.py", line 40, in test_logger
+    1 / 0  # Gera uma exceção
+    ~~^~~
+ZeroDivisionError: division by zero
+2025-03-19 14:52:54 | InsiderCrypto | ERROR | log_config:53 - [APIConnectionError] [APIConnectionError] Falha na conexão com a API (URL: https://api.example.com) | Detalhes: Timeout ao tentar conectar | Causa: Erro de rede
+2025-03-19 14:53:38 | InsiderCrypto | ALERT | log_config:42 - Esta é uma mensagem de ALERT
+2025-03-19 14:53:38 | InsiderCrypto | ERROR | test_logger:35 - Esta é uma mensagem de ERROR
+2025-03-19 14:53:38 | InsiderCrypto | CRITICAL | test_logger:36 - Esta é uma mensagem de CRITICAL
+2025-03-19 14:53:38 | InsiderCrypto | ERROR | test_logger:42 - Erro ao dividir por zero: division by zero
+Traceback (most recent call last):
+  File "D:\Workspace\Projeto-Python\insider_crypto_bot\tests\test_logger.py", line 40, in test_logger
+    1 / 0  # Gera uma exceção
+    ~~^~~
+ZeroDivisionError: division by zero
+2025-03-19 14:53:38 | InsiderCrypto | ERROR | log_config:53 - [APIConnectionError] [APIConnectionError] Falha na conexão com a API (URL: https://api.example.com) | Detalhes: Timeout ao tentar conectar | Causa: Erro de rede
+2025-03-19 14:53:58 | InsiderCrypto | ALERT | log_config:42 - Esta é uma mensagem de ALERT
+2025-03-19 14:53:58 | InsiderCrypto | ERROR | test_logger:35 - Esta é uma mensagem de ERROR
+2025-03-19 14:53:58 | InsiderCrypto | CRITICAL | test_logger:36 - Esta é uma mensagem de CRITICAL
+2025-03-19 14:53:58 | InsiderCrypto | ERROR | test_logger:42 - Erro ao dividir por zero: division by zero
+Traceback (most recent call last):
+  File "D:\Workspace\Projeto-Python\insider_crypto_bot\tests\test_logger.py", line 40, in test_logger
+    1 / 0  # Gera uma exceção
+    ~~^~~
+ZeroDivisionError: division by zero
+2025-03-19 14:53:58 | InsiderCrypto | ERROR | log_config:53 - [APIConnectionError] [APIConnectionError] Falha na conexão com a API (URL: https://api.example.com) | Detalhes: Timeout ao tentar conectar | Causa: Erro de rede
