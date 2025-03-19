@@ -27,3 +27,5 @@ build/
 # Arquivos temporários
 .coverage
 htmlcov/
+pytest.ini
+setup.py
